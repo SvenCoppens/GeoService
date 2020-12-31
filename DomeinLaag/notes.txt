@@ -1,0 +1,4 @@
+﻿testen als je dingen verwijderd waardoor regels niet meer voldaan worden ook extra verwijderen.
+
+Als ik een land toevoeg of update, moet ik een lijst van steden meegeven?
+	dus een lijst []capitals, en een lijst []cities?
