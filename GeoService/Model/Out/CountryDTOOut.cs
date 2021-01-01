@@ -12,6 +12,9 @@ namespace GeoService.Model
         public int Population { get; set; }
         public int Surface { get; set; }
         public string Continent { get; set; }
+        public string[] Capitals { get; set; }
         public string[] Cities { get; set; }
+        public string[] Rivers { get; set; }
+        
     }
 }

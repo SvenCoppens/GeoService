@@ -88,40 +88,40 @@ namespace GeoService.Model
             return DTOConverter.ConvertRiverToDTOOut(result);
         }
 
-        public void VerwijderCity(int cityId)
+        public void DeleteCity(int cityId)
         {
             Domein.DeleteCity(cityId);
         }
 
-        public void VerwijderContinent(int id)
+        public void DeleteContinent(int id)
         {
             Domein.DeleteContinent(id);
         }
 
-        public void VerwijderCountry(int countryId)
+        public void DeleteCountry(int countryId)
         {
             Domein.DeleteCountry(countryId);
         }
 
-        public void VerwijderRivier(int id)
+        public void DeleteRiver(int id)
         {
             Domein.DeleteRiver(id);
         }
 
-        public ContinentDTOOut VoegContinentToe(ContinentDTOIn continent)
+        public ContinentDTOOut AddContinent(ContinentDTOIn continent)
         {
             Continent result = Domein.AddContinent(continent.Name);
             return DTOConverter.ConvertContinentToDTOOut(result);
         }
 
-        public CountryDTOOut VoegLandToe(CountryDTOIn country)
+        public CountryDTOOut AddCountry(CountryDTOIn country)
         {
             Continent continent = Domein.GetContinentForId(country.ContinentId);
             Country result = Domein.AddCountry(country.Name, country.Population, country.SurfaceArea, continent);
             return DTOConverter.ConvertCountryToDTOOut(result);
         }
 
-        public RiverDTOOut VoegRivierToe(RiverDTOIn rivier)
+        public RiverDTOOut AddRiver(RiverDTOIn rivier)
         {
             List<Country> countries = new List<Country>();
             foreach(int id in rivier.CountryIds)
@@ -132,7 +132,7 @@ namespace GeoService.Model
             return DTOConverter.ConvertRiverToDTOOut(result);
         }
 
-        public CityDTOOut VoegStadToe(CityDTOIn city)
+        public CityDTOOut AddCity(CityDTOIn city)
         {
             Country country = Domein.GetCountryForId(city.CountryId);
             City result = Domein.AddCity(city.Name, city.Population, country);

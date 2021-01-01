@@ -53,11 +53,28 @@ namespace GeoService.Model
 
             var capitals = country.Capitals;
             string[] capitalStrings = new string[capitals.Count];
-            for (int i = 0; i < capitals.Count; i++)
+            for(int i = 0; i < capitals.Count; i++)
             {
                 capitalStrings[i] = CreateCityIdString(country.Continent.Id, country.Id, capitals[i].Id);
             }
-            result.Cities = capitalStrings;
+            result.Capitals = capitalStrings;
+
+            var cities = country.Cities;
+            string[] CityStrings = new string[cities.Count];
+            for (int i = 0; i < cities.Count; i++)
+            {
+                CityStrings[i] = CreateCityIdString(country.Continent.Id, country.Id, cities[i].Id);
+            }
+            result.Cities = CityStrings;
+
+            var rivers = country.Rivers;
+            string[] riverStrings = new string[rivers.Count];
+            for(int i = 0; i < rivers.Count; i++)
+            {
+                riverStrings[i] = CreateRiverIdString(rivers[i].Id);
+            }
+            result.Rivers = riverStrings;
+
             return result;
         }
         public static RiverDTOOut ConvertRiverToDTOOut(River river)
@@ -96,7 +113,7 @@ namespace GeoService.Model
         }
         private static string CreateRiverIdString(int riverId)
         {
-            return HostString + @"/api/continent/" + riverId;
+            return HostString + @"/api/river/" + riverId;
         }
     }
 }

@@ -8,24 +8,24 @@ namespace GeoService.Interfaces
 {
     public interface IApiWork
     {
-        ContinentDTOOut VoegContinentToe(ContinentDTOIn continent);
+        ContinentDTOOut AddContinent(ContinentDTOIn continent);
         ContinentDTOOut GetContinentForId(int id);
         CountryDTOOut GetCountryForId(int id);
         ContinentDTOOut UpdateContinent(ContinentDTOIn continent);
-        void VerwijderContinent(int id);
-        CountryDTOOut VoegLandToe(CountryDTOIn country);
-        void VerwijderCountry(int countryId);
+        void DeleteContinent(int id);
+        CountryDTOOut AddCountry(CountryDTOIn country);
+        void DeleteCountry(int countryId);
         CountryDTOOut UpdateCountry(CountryDTOIn countryIn);
-        CityDTOOut VoegStadToe(CityDTOIn city);
+        CityDTOOut AddCity(CityDTOIn city);
         CityDTOOut GetCityForId(int id);
-        void VerwijderCity(int cityId);
+        void DeleteCity(int cityId);
         CityDTOOut UpdateCity(CityDTOIn city);
 
 
-        RiverDTOOut VoegRivierToe(RiverDTOIn rivier);
+        RiverDTOOut AddRiver(RiverDTOIn rivier);
 
         RiverDTOOut GetRiverForId(int id);
-        void VerwijderRivier(int id);
+        void DeleteRiver(int id);
         RiverDTOOut UpdateRivier(RiverDTOIn rivier);
         
     }

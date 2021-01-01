@@ -34,7 +34,7 @@ namespace DomeinLaag.Interfaces
 
         public Continent GetContinentForId(int ContinentId)
         {
-            DataContinent data = Context.Continents.Where(x => x.Id == ContinentId).Include(x => x.Countries).FirstOrDefault();
+            DataContinent data = Context.Continents.Where(x => x.Id == ContinentId).Include(x => x.Countries).ThenInclude(x=>x.Cities).FirstOrDefault();
             return DataModelConverter.ConvertContinentDataToContinent(data);
         }
 

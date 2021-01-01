@@ -10,8 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GeoService.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class RiverController : ControllerBase
     {
         private IApiWork Api;
@@ -26,7 +26,7 @@ namespace GeoService.Controllers
         {
             try
             {
-                RiverDTOOut result = Api.VoegRivierToe(rivier);
+                RiverDTOOut result = Api.AddRiver(rivier);
                 return CreatedAtAction(nameof(MaakRivier), result);
             }
             catch (DomainException ex)
@@ -64,7 +64,7 @@ namespace GeoService.Controllers
         {
             try
             {
-                Api.VerwijderRivier(id);
+                Api.DeleteRiver(id);
                 return NoContent();
             }
             catch (DomainException ex)
@@ -79,7 +79,7 @@ namespace GeoService.Controllers
         {
             if (river == null || river.RiverId != id)
             {
-                return BadRequest();
+                return BadRequest("The Id for the river was not correct");
             }
             else
             {
