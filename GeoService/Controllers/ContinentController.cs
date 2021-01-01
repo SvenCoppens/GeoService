@@ -43,7 +43,7 @@ namespace GeoService.Controllers
         {
             try
             {
-                return Ok(Api.GetCountryForId(id));
+                return Ok(Api.GetContinentForId(id));
             }
             catch (DomainException ex)
             {
@@ -81,7 +81,7 @@ namespace GeoService.Controllers
         }
         [HttpDelete]
         [Route("{id}")]
-        public ActionResult VerwijderKlant(int id)
+        public ActionResult VerwijderContinent(int id)
         {
             try
             {
@@ -95,7 +95,7 @@ namespace GeoService.Controllers
         }
         [Route("{id}/Country")]
         [HttpPost]
-        public ActionResult<ContinentDTOOut> MaakCountry([FromBody] CountryDTOIn country)
+        public ActionResult<ContinentDTOOut> MaakCountry(int continentId,[FromBody] CountryDTOIn country)
         {
             try
             {
@@ -191,8 +191,8 @@ namespace GeoService.Controllers
                 return BadRequest();
             }
         }
-        [Route("{id}/Country/{countryId}/City/{cityId}")]
-        [HttpPost]
+        [Route("{id}/country/{countryId}/city/{cityId}")]
+        [HttpGet]
         public ActionResult<ContinentDTOOut> GeefCity(int id, int countryId, int cityId)
         {
             try

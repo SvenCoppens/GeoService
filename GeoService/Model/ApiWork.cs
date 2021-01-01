@@ -2,6 +2,7 @@
 using DomeinLaag;
 using DomeinLaag.Model;
 using GeoService.Interfaces;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,11 @@ namespace GeoService.Model
     public class ApiWork : IApiWork
     {
         private CountryManager Domein;
-        public ApiWork(CountryManager countrymanager)
+        private DTOConverter converter;
+        public ApiWork(CountryManager countrymanager,IConfiguration config)
         {
             Domein = countrymanager;
+            converter = new DTOConverter(config);
         }
         public ContinentDTOOut GetContinentForId(int id)
         {
@@ -136,5 +139,7 @@ namespace GeoService.Model
 
             return DTOConverter.ConvertCityToDTOOut(result);
         }
+
+        
     }
 }

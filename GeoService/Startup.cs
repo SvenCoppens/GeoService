@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using DataLaag;
@@ -21,7 +22,10 @@ namespace GeoService
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            //Configuration = configuration;
+            var builder = new ConfigurationBuilder().AddConfiguration(configuration)
+                .AddJsonFile(Path.Combine(Directory.GetCurrentDirectory(), "Properties", "launchSettings.json"));
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -30,7 +34,7 @@ namespace GeoService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<IApiWork>(new ApiWork(new CountryManager(new DataAccess())));
+            services.AddSingleton<IApiWork>(new ApiWork(new CountryManager(new DataAccess()),Configuration));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,7 +45,7 @@ namespace GeoService
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 

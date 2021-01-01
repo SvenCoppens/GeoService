@@ -9,6 +9,7 @@ namespace GeoService.Interfaces
     public interface IApiWork
     {
         ContinentDTOOut VoegContinentToe(ContinentDTOIn continent);
+        ContinentDTOOut GetContinentForId(int id);
         CountryDTOOut GetCountryForId(int id);
         ContinentDTOOut UpdateContinent(ContinentDTOIn continent);
         void VerwijderContinent(int id);
@@ -26,5 +27,6 @@ namespace GeoService.Interfaces
         RiverDTOOut GetRiverForId(int id);
         void VerwijderRivier(int id);
         RiverDTOOut UpdateRivier(RiverDTOIn rivier);
+        
     }
 }

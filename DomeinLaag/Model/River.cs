@@ -16,7 +16,7 @@ namespace DomeinLaag.Model
 
         public void SetCountries(List<Country> landen)
         {
-            if (landen == null || landen.Count > 1)
+            if (landen == null || landen.Count < 1)
                 throw new CountryException("Een rivier behoort minstens tot een land.");
             else Countries = landen;
         }      

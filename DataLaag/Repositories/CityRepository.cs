@@ -1,8 +1,10 @@
 ﻿using DataLaag;
 using DataLaag.DataModel;
 using DomeinLaag.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DomeinLaag.Interfaces
@@ -32,7 +34,7 @@ namespace DomeinLaag.Interfaces
 
         public City GetCityForId(int cityId)
         {
-            DataCity result = Context.Cities.Find(cityId);
+            DataCity result = Context.Cities.Where(x => x.Id == cityId).Include(x => x.Country).ThenInclude(x=>x.Continent).FirstOrDefault();
             return DataModelConverter.ConvertCityDataToCity(result);
         }
 

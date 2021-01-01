@@ -90,6 +90,13 @@ namespace DataLaag
         {
             Continent continent = ConvertContinentDataToContinent(data.Continent);
             Country country = new Country(data.Name, data.Population, data.Surface, continent);
+            foreach(DataCity city in data.Cities)
+            {
+                if (city.Capital)
+                    country.AddCapital(ConvertCityDataToCity(city));
+                else
+                    country.AddCity(ConvertCityDataToCity(city));
+            }
             country.Id = data.Id;
             return country;
         }
@@ -110,7 +117,7 @@ namespace DataLaag
         internal static Country CreateCountryToAddToContinent(DataCountry country,Continent continent)
         {
             Country countryResult = new Country(country.Name, country.Population, country.Surface, continent);
-            country.Id = country.Id;
+            countryResult.Id = country.Id;
             return countryResult;
         }
     }

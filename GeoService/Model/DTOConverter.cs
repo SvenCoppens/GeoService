@@ -1,4 +1,5 @@
 ﻿using DomeinLaag.Model;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,8 +7,14 @@ using System.Threading.Tasks;
 
 namespace GeoService.Model
 {
-    public static class DTOConverter
+    public class DTOConverter
     {
+        //hier iets vinden om dit static te regelen.
+        public DTOConverter(IConfiguration config)
+        {
+            CreateHostString(config);
+        }
+        private static string HostString;
         //out
         public static ContinentDTOOut ConvertContinentToDTOOut(Continent continent)
         {
@@ -19,7 +26,7 @@ namespace GeoService.Model
             string[] countryStrings = new string[countries.Count];
             for(int i=0;i<countries.Count;i++)
             {
-                countryStrings[i] = CreateCountryIdString(countries[i].Id);
+                countryStrings[i] = CreateCountryIdString(continent.Id,countries[i].Id);
             }
 
             result.Countries = countryStrings;
@@ -29,26 +36,26 @@ namespace GeoService.Model
         {
             CityDTOOut result = new CityDTOOut();
             result.Name = city.Name;
-            result.CityId = CreateCityIdString(city.Id);
+            result.CityId = CreateCityIdString(city.Country.Continent.Id,city.Country.Id,city.Id);
             result.Population = city.Population;
 
-            result.Country = CreateCountryIdString(city.Country.Id);
+            result.Country = CreateCountryIdString(city.Country.Continent.Id, city.Country.Id);
             return result;
         }
         public static CountryDTOOut ConvertCountryToDTOOut(Country country)
         {
             CountryDTOOut result = new CountryDTOOut();
-            result.Continent = CreateCountryIdString(country.Continent.Id);
+            result.Continent = CreateContinentIdString(country.Continent.Id);
             result.Name = country.Name;
             result.Population = country.Population;
             result.Surface = country.SurfaceArea;
-            result.CountryId = CreateCountryIdString(country.Id);
+            result.CountryId = CreateCountryIdString(country.Continent.Id, country.Id);
 
             var capitals = country.Capitals;
             string[] capitalStrings = new string[capitals.Count];
             for (int i = 0; i < capitals.Count; i++)
             {
-                capitalStrings[i] = CreateCountryIdString(capitals[i].Id);
+                capitalStrings[i] = CreateCityIdString(country.Continent.Id, country.Id, capitals[i].Id);
             }
             result.Cities = capitalStrings;
             return result;
@@ -65,28 +72,31 @@ namespace GeoService.Model
             string[] countryStrings = new string[countries.Count];
             for (int i = 0; i < countries.Count; i++)
             {
-                countryStrings[i] = CreateCountryIdString(countries[i].Id);
+                countryStrings[i] = CreateCountryIdString(countries[i].Continent.Id,countries[i].Id);
             }
             result.Countries = countryStrings;
             return result;
         }
 
-
-        private static string CreateContinentIdString(int ContinentId)
-        {
-
+        private static void CreateHostString(IConfiguration iConfiguration)
+        { 
+            HostString = iConfiguration.GetValue<string>("iisSettings:IISExpress:applicationUrl");
         }
-        private static string CreateCityIdString(int cityId)
+        private static string CreateContinentIdString(int continentId)
         {
-
+            return HostString + @"/api/continent/" + continentId;
         }
-        private static string CreateCountryIdString(int countryId)
+        private static string CreateCityIdString(int continentId, int countryId,int cityId)
         {
-
+            return HostString + @"/api/continent/" + continentId + "/Country/" + countryId+"/City/"+cityId;
+        }
+        private static string CreateCountryIdString(int continentId,int countryId)
+        {
+            return HostString + @"/api/continent/" + continentId + "/Country/"+countryId;
         }
         private static string CreateRiverIdString(int riverId)
         {
-
+            return HostString + @"/api/continent/" + riverId;
         }
     }
 }
