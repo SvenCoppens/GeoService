@@ -1,0 +1,9 @@
+﻿DELETE FROM DataCountryRiver;
+DELETE FROM Rivers;
+DBCC CHECKIDENT ('Rivers', RESEED, 0);
+DELETE FROM Cities;
+DBCC CHECKIDENT ('Cities', RESEED, 0);
+DELETE FROM Countries;
+DBCC CHECKIDENT ('Countries', RESEED, 0);
+DELETE FROM Continents;
+DBCC CHECKIDENT ('Continents', RESEED, 0);

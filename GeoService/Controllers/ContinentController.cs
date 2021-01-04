@@ -101,7 +101,7 @@ namespace GeoService.Controllers
                 return BadRequest();
             }
         }
-        [Route("{id}/Country")]
+        [Route("{continentId}/Country")]
         [HttpPost]
         public ActionResult<CountryDTOOut> CreateCountry(int continentId, [FromBody] CountryDTOIn country)
         {
@@ -163,7 +163,7 @@ namespace GeoService.Controllers
             }
         }
         [HttpPut]
-        [Route("{id}/Country/{countryId}")]
+        [Route("{ContinentId}/Country/{countryId}")]
         public ActionResult<CountryDTOOut> UpdateCountry(int ContinentId, int countryId, [FromBody] CountryDTOIn countryIn)
         {
             //hier de checks verbeteren
@@ -175,7 +175,7 @@ namespace GeoService.Controllers
             {
                 try
                 {
-                    return CreatedAtAction(nameof(UpdateContinent), Api.UpdateCountry(countryIn));
+                    return CreatedAtAction(nameof(UpdateCountry), Api.UpdateCountry(countryIn));
                 }
                 catch (DomainException ex)
                 {
@@ -187,7 +187,7 @@ namespace GeoService.Controllers
                 }
             }
         }
-        [Route("{id}/Country/{countryId}/City")]
+        [Route("{ContinentId}/Country/{countryId}/City")]
         [HttpPost]
         public ActionResult<ContinentDTOOut> CreateCity(int ContinentId, int countryId, [FromBody] CityDTOIn city)
         {
@@ -232,7 +232,7 @@ namespace GeoService.Controllers
         }
 
         [Route("{id}/Country/{countryId}/City/{cityId}")]
-        [HttpPost]
+        [HttpDelete]
         public ActionResult<ContinentDTOOut> DeleteCity(int id, int countryId, int cityId)
         {
             

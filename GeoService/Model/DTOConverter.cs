@@ -38,6 +38,7 @@ namespace GeoService.Model
             result.Name = city.Name;
             result.CityId = CreateCityIdString(city.Country.Continent.Id,city.Country.Id,city.Id);
             result.Population = city.Population;
+            result.Capital = city.Capital;
 
             result.Country = CreateCountryIdString(city.Country.Continent.Id, city.Country.Id);
             return result;
@@ -67,13 +68,13 @@ namespace GeoService.Model
             }
             result.Cities = CityStrings;
 
-            var rivers = country.GetRivers();
-            string[] riverStrings = new string[rivers.Count];
-            for(int i = 0; i < rivers.Count; i++)
-            {
-                riverStrings[i] = CreateRiverIdString(rivers.ElementAt(i).Id);
-            }
-            result.Rivers = riverStrings;
+            //var rivers = country.GetRivers();
+            //string[] riverStrings = new string[rivers.Count];
+            //for(int i = 0; i < rivers.Count; i++)
+            //{
+            //    riverStrings[i] = CreateRiverIdString(rivers.ElementAt(i).Id);
+            //}
+            //result.Rivers = riverStrings;
 
             return result;
         }

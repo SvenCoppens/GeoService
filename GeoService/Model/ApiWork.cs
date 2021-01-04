@@ -66,7 +66,9 @@ namespace GeoService.Model
         {
             Country original = Domein.GetCountryForId(countryIn.CountryId);
             original.Population = countryIn.Population;
-            original.Continent = Domein.GetContinentForId(countryIn.ContinentId);
+            Continent newContinent = Domein.GetContinentForId(countryIn.ContinentId);
+            if(!original.Continent.Equals(newContinent))
+                original.Continent = Domein.GetContinentForId(countryIn.ContinentId);
             original.Name = countryIn.Name;
             original.SurfaceArea = countryIn.SurfaceArea;
 

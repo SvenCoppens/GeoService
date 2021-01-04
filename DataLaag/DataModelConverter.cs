@@ -35,7 +35,8 @@ namespace DataLaag
             //country.Id = data.Id;
             //return country;
             Continent continent = ConvertContinentDataToContinent(data.Continent);
-            return continent.GetCountries().Where(x => x.Id == data.Id).FirstOrDefault();
+            Country country = continent.GetCountries().Where(x => x.Id == data.Id).FirstOrDefault();
+            return country;
         }
         internal static City ConvertCityDataToCity(DataCity data)
         {
@@ -130,9 +131,14 @@ namespace DataLaag
             {
                 CreateCityToAddToCountry(city, countryResult);
             }
+            //foreach(DataCountryRiver countryRiver in country.RiverLink)
+            //{
+            //    CreateRiverToAddToCountry(country, countryRiver.River);
+            //}
             countryResult.Id = country.Id;
             return countryResult;
         }
+
         private static City CreateCityToAddToCountry(DataCity city,Country country)
         {
             City cityResult = new City(city.Name, city.Population, country, city.Capital);

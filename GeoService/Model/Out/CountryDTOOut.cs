@@ -14,7 +14,6 @@ namespace GeoService.Model
         public string Continent { get; set; }
         public string[] Capitals { get; set; }
         public string[] Cities { get; set; }
-        public string[] Rivers { get; set; }
         
     }
 }

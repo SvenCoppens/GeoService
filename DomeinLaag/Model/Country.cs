@@ -38,12 +38,13 @@ namespace DomeinLaag.Model
                     throw new CountryException("Het continent van een land mag niet null zijn.");
                 else
                 {
-                    if (_Continent != null)
-                    {
-                        _Continent.RemoveCountryFromContinent(this);
-                    }
-                    _Continent = value;
-                    _Continent.AddCountryToContinent(this);
+                    
+                        if (_Continent != null)
+                        {
+                            _Continent.RemoveCountryFromContinent(this);
+                        }
+                        _Continent = value;
+                        _Continent.AddCountryToContinent(this);
                 }
 
             }

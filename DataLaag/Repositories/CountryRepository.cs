@@ -43,7 +43,7 @@ namespace DomeinLaag.Interfaces
         }
         private DataCountry GetDataCountryForId(int countryId)
         {
-            return Context.Countries.Where(x => x.Id == countryId).Include(x => x.Continent).Include(x => x.Cities).FirstOrDefault();
+            return Context.Countries.Where(x => x.Id == countryId).Include(x => x.Continent).Include(x => x.Cities).Include(x=>x.RiverLink).ThenInclude(x => x.River).FirstOrDefault();
         }
         public Country UpdateCountry(Country country)
         {
