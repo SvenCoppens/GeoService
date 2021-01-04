@@ -26,7 +26,7 @@ namespace GeoService.Interfaces
 
         RiverDTOOut GetRiverForId(int id);
         void DeleteRiver(int id);
-        RiverDTOOut UpdateRivier(RiverDTOIn rivier);
+        RiverDTOOut UpdateRiver(RiverDTOIn rivier);
         
     }
 }

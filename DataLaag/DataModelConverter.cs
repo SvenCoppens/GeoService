@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DataLaag
 {
-    public static class DataModelConverter
+    internal static class DataModelConverter
     {
         //Data to object
         internal static Continent ConvertContinentDataToContinent(DataContinent data)
@@ -45,7 +45,7 @@ namespace DataLaag
             //return result;
 
             Country country = ConvertCountryDataToCountry(data.Country);
-            return country.Cities.Where(x => x.Id == data.Id).FirstOrDefault();
+            return country.GetCities().Where(x => x.Id == data.Id).FirstOrDefault();
 
         }
         internal static River ConvertRiverDataToRiver(DataRiver data)
@@ -69,7 +69,7 @@ namespace DataLaag
         {
             DataContinent result = new DataContinent();
             result.Id = continent.Id;
-            result.Name = continent.Naam;
+            result.Name = continent.Name;
             var collection = continent.GetCountries();
             if (collection != null)
             {

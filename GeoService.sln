@@ -11,13 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLaag", "DataLaag\DataLa
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{1E6DEA08-60EC-4A70-AF5D-EBF07E30DEB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayerTests", "DataLayerTests\DataLayerTests.csproj", "{E70D7EEF-98F9-41BD-B21D-29DF4D137026}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLayerTests", "DataLayerTests\DataLayerTests.csproj", "{E70D7EEF-98F9-41BD-B21D-29DF4D137026}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainLayerTests", "DomainLayerTests\DomainLayerTests.csproj", "{FC397763-A12A-416A-B720-74D86567ED9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DomainLayerTests", "DomainLayerTests\DomainLayerTests.csproj", "{FC397763-A12A-416A-B720-74D86567ED9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiServiceTests", "ApiServiceTests\ApiServiceTests.csproj", "{029FE141-8FB8-414C-9FD4-6CDA67EE0207}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiServiceTests", "ApiServiceTests\ApiServiceTests.csproj", "{029FE141-8FB8-414C-9FD4-6CDA67EE0207}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManualTesting", "ManualTesting\ManualTesting.csproj", "{239AD014-01AE-4247-A3E3-CA4F17D32705}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ManualTesting", "ManualTesting\ManualTesting.csproj", "{239AD014-01AE-4247-A3E3-CA4F17D32705}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

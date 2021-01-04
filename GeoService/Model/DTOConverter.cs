@@ -19,7 +19,7 @@ namespace GeoService.Model
         public static ContinentDTOOut ConvertContinentToDTOOut(Continent continent)
         {
             ContinentDTOOut result = new ContinentDTOOut();
-            result.Name = continent.Naam;
+            result.Name = continent.Name;
             result.Population = continent.GetPopulation();
             result.ContinentId = CreateContinentIdString(continent.Id);
             var countries = continent.GetCountries();
@@ -51,27 +51,27 @@ namespace GeoService.Model
             result.Surface = country.SurfaceArea;
             result.CountryId = CreateCountryIdString(country.Continent.Id, country.Id);
 
-            var capitals = country.Capitals;
+            var capitals = country.GetCapitals();
             string[] capitalStrings = new string[capitals.Count];
             for(int i = 0; i < capitals.Count; i++)
             {
-                capitalStrings[i] = CreateCityIdString(country.Continent.Id, country.Id, capitals[i].Id);
+                capitalStrings[i] = CreateCityIdString(country.Continent.Id, country.Id, capitals.ElementAt(i).Id);
             }
             result.Capitals = capitalStrings;
 
-            var cities = country.Cities;
+            var cities = country.GetCities();
             string[] CityStrings = new string[cities.Count];
             for (int i = 0; i < cities.Count; i++)
             {
-                CityStrings[i] = CreateCityIdString(country.Continent.Id, country.Id, cities[i].Id);
+                CityStrings[i] = CreateCityIdString(country.Continent.Id, country.Id, cities.ElementAt(i).Id);
             }
             result.Cities = CityStrings;
 
-            var rivers = country.Rivers;
+            var rivers = country.GetRivers();
             string[] riverStrings = new string[rivers.Count];
             for(int i = 0; i < rivers.Count; i++)
             {
-                riverStrings[i] = CreateRiverIdString(rivers[i].Id);
+                riverStrings[i] = CreateRiverIdString(rivers.ElementAt(i).Id);
             }
             result.Rivers = riverStrings;
 

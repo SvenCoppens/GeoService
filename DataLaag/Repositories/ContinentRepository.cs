@@ -27,14 +27,20 @@ namespace DomeinLaag.Interfaces
 
         public void DeleteContinent(int continentId)
         {
-            DataContinent data = Context.Continents.AsNoTracking().ToList().Find(x => x.Id == continentId);
+            DataContinent data = GetContinentDataForId(continentId);
             Context.Remove(data);
             Context.SaveChanges();
         }
-
-        public Continent GetContinentForId(int ContinentId)
+        private DataContinent GetContinentDataForId(int continentId)
         {
-            DataContinent data = Context.Continents.Where(x => x.Id == ContinentId).Include(x => x.Countries).ThenInclude(x=>x.Cities).FirstOrDefault();
+            return Context.Continents.Where(x => x.Id == continentId).Include(x => x.Countries).ThenInclude(x => x.Cities).FirstOrDefault();
+        }
+        public Continent GetContinentForId(int continentId)
+        {
+            DataContinent data = GetContinentDataForId(continentId);
+            if (data == null)
+                return null;
+            else
             return DataModelConverter.ConvertContinentDataToContinent(data);
         }
 
@@ -47,6 +53,11 @@ namespace DomeinLaag.Interfaces
             Context.Continents.Update(original);
             Context.SaveChanges();
             return DataModelConverter.ConvertContinentDataToContinent(original);
+        }
+
+        public bool IsNameAvailable(string name)
+        {
+            return !Context.Continents.Any(x => x.Name == name);
         }
     }
 }

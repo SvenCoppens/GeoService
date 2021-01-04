@@ -7,6 +7,7 @@ using GeoService.Interfaces;
 using GeoService.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace GeoService.Controllers
 {
@@ -15,19 +16,21 @@ namespace GeoService.Controllers
     public class RiverController : ControllerBase
     {
         private IApiWork Api;
-        public RiverController(IApiWork api)
+        private readonly ILogger Logger;
+        public RiverController(IApiWork api, ILogger<ContinentController> logger)
         {
             Api = api;
+            Logger = logger;
         }
 
 
         [HttpPost]
-        public ActionResult<RiverDTOOut> MaakRivier([FromBody] RiverDTOIn rivier)
+        public ActionResult<RiverDTOOut> CreateRiver([FromBody] RiverDTOIn rivier)
         {
             try
             {
                 RiverDTOOut result = Api.AddRiver(rivier);
-                return CreatedAtAction(nameof(MaakRivier), result);
+                return CreatedAtAction(nameof(CreateRiver), result);
             }
             catch (DomainException ex)
             {
@@ -41,12 +44,12 @@ namespace GeoService.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public ActionResult<RiverDTOOut> GetRivier(int id)
+        public ActionResult<RiverDTOOut> GetRiver(int id)
         {
             try
             {
                 RiverDTOOut result = Api.GetRiverForId(id);
-                return CreatedAtAction(nameof(GetRivier), result);
+                return Ok( result);
             }
             catch (DomainException ex)
             {
@@ -60,7 +63,7 @@ namespace GeoService.Controllers
 
         [HttpDelete]
         [Route("{id}")]
-        public ActionResult VerwijderRivier(int id)
+        public ActionResult DeleteRiver(int id)
         {
             try
             {
@@ -69,13 +72,17 @@ namespace GeoService.Controllers
             }
             catch (DomainException ex)
             {
-                return BadRequest(ex.Message);
+                return NotFound(ex.Message);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest();
             }
         }
 
         [HttpPut]
         [Route("{id}")]
-        public ActionResult<RiverDTOOut> UpdateKlant(int id, [FromBody] RiverDTOIn river)
+        public ActionResult<RiverDTOOut> UpdateRiver(int id, [FromBody] RiverDTOIn river)
         {
             if (river == null || river.RiverId != id)
             {
@@ -85,7 +92,7 @@ namespace GeoService.Controllers
             {
                 try
                 {
-                    return CreatedAtAction(nameof(UpdateKlant), Api.UpdateRivier(river));
+                    return CreatedAtAction(nameof(UpdateRiver), Api.UpdateRiver(river));
                 }
                 catch (DomainException ex)
                 {

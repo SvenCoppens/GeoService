@@ -51,6 +51,8 @@ namespace GeoService
 
             app.UseAuthorization();
 
+            app.UseMiddleware<ApiCallLogMiddleWare>();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

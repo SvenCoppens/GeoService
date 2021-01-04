@@ -13,4 +13,9 @@
     <PackageReference Include="coverlet.collector" Version="1.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DomeinLaag\DomeinLaag.csproj" />
+    <ProjectReference Include="..\ManualTesting\ManualTesting.csproj" />
+  </ItemGroup>
+
 </Project>

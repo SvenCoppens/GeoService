@@ -36,7 +36,10 @@ namespace DomeinLaag.Interfaces
         public Country GetCountryForId(int countryId)
         {
             DataCountry data = GetDataCountryForId(countryId);
-            return DataModelConverter.ConvertCountryDataToCountry(data);
+            if (data == null)
+                return null;
+            else
+                return DataModelConverter.ConvertCountryDataToCountry(data);
         }
         private DataCountry GetDataCountryForId(int countryId)
         {
@@ -49,6 +52,7 @@ namespace DomeinLaag.Interfaces
             original.Name = data.Name;
             original.Population = data.Population;
             original.Surface = data.Surface;
+            original.ContinentId = data.ContinentId;
             Context.Countries.Update(original);
             Context.SaveChanges();
             return DataModelConverter.ConvertCountryDataToCountry(original);

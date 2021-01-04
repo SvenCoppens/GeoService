@@ -33,7 +33,10 @@ namespace DomeinLaag.Interfaces
         public River GetRiverForId(int id)
         {
             DataRiver river = Context.Rivers.Find(id);
-            return DataModelConverter.ConvertRiverDataToRiver(river);
+            if (river == null)
+                return null;
+            else
+                return DataModelConverter.ConvertRiverDataToRiver(river);
 
         }
 

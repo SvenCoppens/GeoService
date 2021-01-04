@@ -11,5 +11,6 @@ namespace DomeinLaag.Interfaces
         Continent GetContinentForId(int id);
         Continent UpdateContinent(Continent continent);
         void DeleteContinent(int continentId);
+        bool IsNameAvailable(string name);
     }
 }

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DomeinLaag
 {
-    public class CountryManager
+    public class CountryManager : ICountryManager
     {
         public IDataAccess Data { get; set; }
         public CountryManager(IDataAccess dataAccess)
@@ -16,13 +16,17 @@ namespace DomeinLaag
         }
         public Continent AddContinent(string name)
         {
-            Continent continent = new Continent(name);
+            if (Data.Continents.IsNameAvailable(name))
+            {
+                Continent continent = new Continent(name);
 
-            Continent result = Data.Continents.AddContinent(continent);
-            return result;
+                Continent result = Data.Continents.AddContinent(continent);
+                return result;
+            }
+            else throw new DomainException("A Continent's name must be unique.");
         }
-        
-        public Country AddCountry(string name, int population, int surfaceArea,Continent continent)
+
+        public Country AddCountry(string name, int population, int surfaceArea, Continent continent)
         {
             Country country = new Country(name, population, surfaceArea, continent);
             Country result = Data.Countries.AddCountry(country);
@@ -35,9 +39,9 @@ namespace DomeinLaag
             River result = Data.Rivers.AddRiver(river);
             return result;
         }
-        public City AddCity(string name, int population,Country country,bool capital=false)
+        public City AddCity(string name, int population, Country country, bool capital = false)
         {
-            City city = new City(name, population, country,capital);
+            City city = new City(name, population, country, capital);
 
             City result = Data.Cities.AddCity(city);
             return result;
@@ -46,23 +50,31 @@ namespace DomeinLaag
         public Continent GetContinentForId(int id)
         {
             Continent continent = Data.Continents.GetContinentForId(id);
-            return continent;
+            if (continent != null)
+                return continent;
+            else throw new DomainException("No continent with the given Id exists.");
         }
         public Country GetCountryForId(int id)
         {
             Country country = Data.Countries.GetCountryForId(id);
-            return country;
+            if (country != null)
+                return country;
+            else throw new DomainException("No Country with the given Id exists.");
         }
 
         public River GetRiverForId(int id)
         {
             River river = Data.Rivers.GetRiverForId(id);
-            return river;
+            if (river != null)
+                return river;
+            else throw new DomainException("No river with the given Id exists.");
         }
         public City GetCityForId(int id)
         {
             City city = Data.Cities.GetCityForId(id);
-            return city;
+            if (city != null)
+                return city;
+            else throw new DomainException("No city with the given Id exists.");
         }
         public City UpdateCity(City city)
         {

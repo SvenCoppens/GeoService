@@ -12,9 +12,9 @@ namespace GeoService.Model
 {
     public class ApiWork : IApiWork
     {
-        private CountryManager Domein;
+        private ICountryManager Domein;
         private DTOConverter converter;
-        public ApiWork(CountryManager countrymanager,IConfiguration config)
+        public ApiWork(ICountryManager countrymanager,IConfiguration config)
         {
             Domein = countrymanager;
             converter = new DTOConverter(config);
@@ -48,6 +48,7 @@ namespace GeoService.Model
             City original = Domein.GetCityForId(city.CityId);
             original.Population = city.Population;
             original.Name = city.Name;
+            original.Capital = city.Capital;
             
             City result = Domein.UpdateCity(original);
             return DTOConverter.ConvertCityToDTOOut(result);
@@ -56,7 +57,7 @@ namespace GeoService.Model
         public ContinentDTOOut UpdateContinent(ContinentDTOIn continent)
         {
             Continent original = Domein.GetContinentForId(continent.ContinentId);
-            original.Naam = continent.Name;
+            original.Name = continent.Name;
             Continent result = Domein.UpdateContinent(original);
             return DTOConverter.ConvertContinentToDTOOut(result);
         }
@@ -73,7 +74,7 @@ namespace GeoService.Model
             return DTOConverter.ConvertCountryToDTOOut(result);
         }
 
-        public RiverDTOOut UpdateRivier(RiverDTOIn riverIn)
+        public RiverDTOOut UpdateRiver(RiverDTOIn riverIn)
         {
             River original = Domein.GetRiverForId(riverIn.RiverId);
             original.LengthInKm = riverIn.Length;
@@ -135,7 +136,7 @@ namespace GeoService.Model
         public CityDTOOut AddCity(CityDTOIn city)
         {
             Country country = Domein.GetCountryForId(city.CountryId);
-            City result = Domein.AddCity(city.Name, city.Population, country);
+            City result = Domein.AddCity(city.Name, city.Population, country,city.Capital);
 
             return DTOConverter.ConvertCityToDTOOut(result);
         }

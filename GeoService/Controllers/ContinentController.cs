@@ -10,20 +10,23 @@ using Microsoft.Extensions.Logging;
 
 namespace GeoService.Controllers
 {
+    
     [ApiController]
     [Route("api/[controller]")]
     public class ContinentController : ControllerBase
     {
+        private readonly ILogger Logger;
         private IApiWork Api;
-        public ContinentController(IApiWork api)
+        public ContinentController(IApiWork api,ILogger<ContinentController> logger)
         {
             Api = api;
+            Logger = logger;
         }
 
         [HttpPost]
-        public ActionResult<ContinentDTOIn> CreateContinent([FromBody] ContinentDTOIn continent)
+        public ActionResult<ContinentDTOOut> CreateContinent([FromBody] ContinentDTOIn continent)
         {
-
+            //Logger.LogInformation(DateTime.Now + $" - CreateContinent Called.");
             try
             {
                 ContinentDTOOut result = Api.AddContinent(continent);
@@ -40,7 +43,7 @@ namespace GeoService.Controllers
         }
         [HttpGet]
         [Route("{id}")]
-        public ActionResult<ContinentDTOIn> GetContinent(int id)
+        public ActionResult<ContinentDTOOut> GetContinent(int id)
         {
             try
             {
@@ -58,7 +61,7 @@ namespace GeoService.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public ActionResult<ContinentDTOIn> UpdateContinent(int id, [FromBody] ContinentDTOIn continent)
+        public ActionResult<ContinentDTOOut> UpdateContinent(int id, [FromBody] ContinentDTOIn continent)
         {
             if (continent.ContinentId != id)
             {
@@ -91,12 +94,16 @@ namespace GeoService.Controllers
             }
             catch (DomainException ex)
             {
-                return BadRequest(ex.Message);
+                return NotFound(ex.Message);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest();
             }
         }
         [Route("{id}/Country")]
         [HttpPost]
-        public ActionResult<ContinentDTOOut> CreateContinent(int continentId, [FromBody] CountryDTOIn country)
+        public ActionResult<CountryDTOOut> CreateCountry(int continentId, [FromBody] CountryDTOIn country)
         {
             if (country.ContinentId != continentId)
                 return BadRequest("The ContinentIds did not match.");
@@ -119,7 +126,7 @@ namespace GeoService.Controllers
         }
         [HttpGet]
         [Route("{id}/Country/{countryId}")]
-        public ActionResult<CountryDTOOut> GetContinent(int id, int countryId)
+        public ActionResult<CountryDTOOut> GetCountry(int id, int countryId)
         {
 
             try
@@ -164,10 +171,6 @@ namespace GeoService.Controllers
             {
                 return BadRequest("The CountryIds dit not match or were not correct.");
             }
-            else if(ContinentId != countryIn.ContinentId)
-            {
-                return BadRequest("The ContinentIds dit not match or were not correct.");
-            }
             else
             {
                 try
@@ -191,10 +194,6 @@ namespace GeoService.Controllers
             if (city.CountryId!=countryId)
             {
                 return BadRequest("The CountryIds dit not match or were not correct.");
-            }
-            else if (ContinentId != city.ContinentId)
-            {
-                return BadRequest("The ContinentIds dit not match or were not correct.");
             }
             else
             {
@@ -220,7 +219,7 @@ namespace GeoService.Controllers
             try
             {
                 CityDTOOut result = Api.GetCityForId(cityId);
-                return CreatedAtAction(nameof(GetCity), result);
+                return Ok(result);
             }
             catch (DomainException ex)
             {
@@ -257,17 +256,9 @@ namespace GeoService.Controllers
         public ActionResult<CountryDTOOut> UpdateCity(int id, int countryId, int cityId, [FromBody] CityDTOIn city)
         {
             //hier de checks verbeteren
-            if (city.CityId != id)
+            if (city.CityId != cityId)
             {
                 return BadRequest("The CityIds did not match or were not correct.");
-            }
-            else if (id != city.ContinentId)
-            {
-                return BadRequest("The ContinentIds did not match or were not correct.");
-            }
-            else if (countryId!=city.CountryId)
-            {
-                return BadRequest("The CountryIds did not match or were not correct.");
             }
             else
             {
